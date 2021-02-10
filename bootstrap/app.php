@@ -72,12 +72,14 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+ $app->middleware([
+     App\Http\Middleware\CorsMiddleware::class,
+ ]);
 
  $app->routeMiddleware([
-     'auth' => App\Http\Middleware\Authenticate::class,
+     'auth'    => App\Http\Middleware\Authenticate::class,
+     'patient' => App\Http\Middleware\PatientMiddleware::class,
+     'doctor'  => App\Http\Middleware\DoctorMiddleware::class,
  ]);
 
 /*
@@ -94,6 +96,12 @@ $app->configure('app');
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
+$app->configure('filesystems');
+
+if (!class_exists('Storage')) class_alias('Illuminate\Support\Facades\Storage', 'Storage');
+
+$app->register(Illuminate\Filesystem\FilesystemServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
