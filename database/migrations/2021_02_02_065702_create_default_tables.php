@@ -39,7 +39,7 @@ class CreateDefaultTables extends Migration
         Schema::create('specialities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('speciality_pic_url')->nullable()->default(null);
+            $table->string('speciality_pic_url')->nullable()->default("pepe.png");
         });
 
         Schema::create('doctors', function (Blueprint $table) {
@@ -151,16 +151,6 @@ class CreateDefaultTables extends Migration
                 'user_id' => 2,
             ]
         ]);
-
-        /** Довабление расписания на ближайший месяц */
-        $schedule = [];
-        for ($i = 0; $i < 30; $i++){
-            $schedule[$i]['doctor_id'] = 1;
-            $schedule[$i]['date'] = date('Y-m-d', strtotime("+$i day", time()));
-            $schedule[$i]['time_interval_start_id'] = 1;
-            $schedule[$i]['time_interval_end_id'] = 36;
-        }
-        DB::table('schedules')->insert($schedule);
     }
 
     /**
