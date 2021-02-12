@@ -1,24 +1,37 @@
-# Lumen PHP Framework
+# Курсовая работа backend часть
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## Описание
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Курсовая работа. Суть проекта: 
+1. возможность создать врача/пациента
+2. возможность записать пациента на прием к врачу
+3. возможность создать гибкое расписание врача
 
-## Official Documentation
+## Порядок установки
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+### Настройка базы данных
+##### Создать базу данных в Mysql или Postgresql с названием `backend_db`
 
-## Contributing
+### Настройка бекенд части
+##### Установить зависимости для backend части
+```
+composer install
+```
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##### Создать копию файла `.env.example` с названием `.env`. Открыть файл `.env` и настроить подключение к базе данных
+```
+DB_CONNECTION=mysql # либо pgsql в случае использования postgresql
+DB_HOST=127.0.0.1
+DB_PORT=3306 # либо 5432 в случае использования postgresql
+DB_DATABASE=backend_db 
+DB_USERNAME=homestead # имя пользователя базы данных
+DB_PASSWORD=secret # пароль пользователя базы данных
+```
 
-## Security Vulnerabilities
+##### Открыть `Git Bash` или `CMD` в директории проекта и выполнить миграцию
+```
+php artisan migrate
+```
+После применения миграции в базе данных должны создаться необходимые таблицы и данные к ним
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##### Запускать либо в `OpenServer` или подобные ему
