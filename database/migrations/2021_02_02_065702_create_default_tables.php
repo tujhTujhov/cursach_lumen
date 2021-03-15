@@ -26,8 +26,9 @@ class CreateDefaultTables extends Migration
             $table->string('password');
             $table->string('email');
             $table->string('api_token');
-            $table->bigInteger('role_id');
+            $table->unsignedBigInteger('role_id');
             $table->timestamps();
+
             $table->foreign('role_id')->references('id')->on('roles');
         });
 
@@ -47,8 +48,8 @@ class CreateDefaultTables extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('middlename')->nullable()->default(null);
-            $table->bigInteger('speciality_id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('speciality_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('avatar_url')->default('default.png');
 
             $table->foreign('speciality_id')->references('id')->on('specialities');
@@ -60,14 +61,14 @@ class CreateDefaultTables extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('middlename')->nullable()->default(null);
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('doctor_id');
+            $table->unsignedBigInteger('doctor_id');
             $table->date('date');
 
             $table->foreign('doctor_id')->references('id')->on('doctors');
@@ -75,19 +76,19 @@ class CreateDefaultTables extends Migration
 
         Schema::create('custom_schedules', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('schedule_id');
-            $table->bigInteger('nonwork_time_interval_id');
+            $table->unsignedBigInteger('schedule_id');
+            $table->unsignedBigInteger('nonwork_time_interval_id');
 
             $table->foreign('nonwork_time_interval_id')->references('id')->on('schedules');
             $table->foreign('schedule_id')->references('id')->on('time_intervals');});
 
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('doctor_id');
-            $table->bigInteger('patient_id');
+            $table->unsignedBigInteger('doctor_id');
+            $table->unsignedBigInteger('patient_id');
             $table->enum('status', ['wait', 'finished'])->default('wait');
-            $table->bigInteger('time_interval_id');
-            $table->bigInteger('schedule_id');
+            $table->unsignedBigInteger('time_interval_id');
+            $table->unsignedBigInteger('schedule_id');
 
             $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->foreign('patient_id')->references('id')->on('patients');
